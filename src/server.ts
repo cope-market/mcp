@@ -1,6 +1,7 @@
 import {McpServer} from "@modelcontextprotocol/sdk/server/mcp.js";
 import type {Config} from "./config.js";
 import type {GraphClient} from "./graphql.js";
+import {registerVaultTools} from "./tools-vaults.js";
 import {formatUnits, readAllSources, trimDecimal} from "./vaults.js";
 
 export const SERVER_NAME = "erc4626-mcp";
@@ -79,6 +80,8 @@ export function createServer(config: Config, client: GraphClient): McpServer {
       return {content: [{type: "text" as const, text: lines.join("\n")}]};
     },
   );
+
+  registerVaultTools(server, config, client);
 
   return server;
 }
