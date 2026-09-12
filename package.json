@@ -13,7 +13,9 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run format:check && npm run typecheck && npm test && npm run build"
+    "check": "npm run format:check && npm run typecheck && npm test && npm run build",
+    "smoke": "npm run build && tsx scripts/smoke.ts",
+    "verify": "npm run build && tsx scripts/verify.ts"
   },
   "author": "",
   "license": "MIT",
