@@ -1,6 +1,7 @@
 import {McpServer} from "@modelcontextprotocol/sdk/server/mcp.js";
 import type {Config} from "./config.js";
 import type {GraphClient} from "./graphql.js";
+import {registerTraderTools} from "./tools-traders.js";
 import {registerVaultTools} from "./tools-vaults.js";
 import {formatUnits, readAllSources, trimDecimal} from "./vaults.js";
 
@@ -82,6 +83,7 @@ export function createServer(config: Config, client: GraphClient): McpServer {
   );
 
   registerVaultTools(server, config, client);
+  registerTraderTools(server, config, client);
 
   return server;
 }

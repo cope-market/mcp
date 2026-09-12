@@ -162,6 +162,13 @@ export function trimDecimal(value: string, places = 6): string {
   const padded = digits.toString().padStart(places + 1, "0");
   const newWhole = padded.slice(0, padded.length - places);
   const newFraction = places === 0 ? "" : padded.slice(padded.length - places).replace(/0+$/, "");
-  const sign = negative ? "-" : "";
+  // A small negative rounded to nothing must not come back as "-0". That reads as a signed zero,
+  // which is not a quantity anyone means.
+  const sign = negative && digits !== 0n ? "-" : "";
   return newFraction === "" ? `${sign}${newWhole}` : `${sign}${newWhole}.${newFraction}`;
+}
+
+/// True for any spelling of zero: "0", "-0", "0.00", "-0.000".
+export function isZero(value: string): boolean {
+  return /^-?0(\.0*)?$/.test(value);
 }
